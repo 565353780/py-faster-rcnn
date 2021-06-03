@@ -3,8 +3,12 @@
 # Licensed under The MIT License [see LICENSE for details]
 # Written by Ross Girshick
 # --------------------------------------------------------
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
 
 import numpy as np
+
 
 def unique_boxes(boxes, scale=1.0):
     """Return indices of unique boxes."""
@@ -13,13 +17,16 @@ def unique_boxes(boxes, scale=1.0):
     _, index = np.unique(hashes, return_index=True)
     return np.sort(index)
 
+
 def xywh_to_xyxy(boxes):
     """Convert [x y w h] box format to [x1 y1 x2 y2] format."""
     return np.hstack((boxes[:, 0:2], boxes[:, 0:2] + boxes[:, 2:4] - 1))
 
+
 def xyxy_to_xywh(boxes):
     """Convert [x1 y1 x2 y2] box format to [x y w h] format."""
     return np.hstack((boxes[:, 0:2], boxes[:, 2:4] - boxes[:, 0:2] + 1))
+
 
 def validate_boxes(boxes, width=0, height=0):
     """Check that a set of boxes are valid."""
@@ -33,6 +40,7 @@ def validate_boxes(boxes, width=0, height=0):
     assert (y2 >= y1).all()
     assert (x2 < width).all()
     assert (y2 < height).all()
+
 
 def filter_small_boxes(boxes, min_size):
     w = boxes[:, 2] - boxes[:, 0]
